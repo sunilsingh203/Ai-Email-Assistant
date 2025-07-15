@@ -29,36 +29,28 @@ Powered by Java Spring Boot, React (optional), and a Chrome Extension. Deployed 
 
 ## 🚀 Getting Started
 
-## 🐳 Run backend locally via Docker
-### 🐳 Pull the latest image from Docker Hub
-`docker pull dasiladev/email-writer-app:latest`
+### 🐳 Run backend locally via Docker
 
-### 🚀 Run the container on port 8080
-`docker run -d -p 8080:8080 --name email-writer dasiladev/email-writer-app:latest`
-
-### ✅ Check that the container is running
-`docker ps`
-
-### 📝 To see logs (check API startup & requests)
-`docker logs -f email-writer`
-
-## The API will be available at:
-
-
-`http://localhost:8080/api/email/generate`
-
-## ⚙️ Environment variables
-Configure your backend with environment variables for security:
+```bash
+docker pull dasiladev/email-writer-app:latest
+docker run -p 8080:8080 dasiladev/email-writer-app:latest
 ```
+### The API will be available at:
+
+```bash 
+http://localhost:8080/api/email/generate
+
+```
+## ⚙️ Environment variables
+```angular2html
 GEMINI_API_URL=https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent
 GEMINI_API_KEY=YOUR_API_KEY
 
 ```
-✅ On Azure, add these as App Settings under your App Service Configuration.
-
 ---
 # 🌐 Chrome Extension
-The Chrome Extension injects an "AI Reply" button directly into Gmail & Outlook.
+
+### The Chrome Extension injects an "AI Reply" button directly into Gmail & Outlook.
 When clicked, it:
 
 - Reads the email thread content
@@ -68,7 +60,55 @@ When clicked, it:
 - Inserts the generated reply into the compose box
 
 ## 🔧 Set your backend URL
-Inside your extension project, edit:
+### Inside your extension project, edit:
+```angular2html
+// config.js or content.js
+const BACKEND_URL = "https://Localhost:8080/api/email/generate";
+
+```
+## 🚀 Load extension in Chrome
+1. Go to chrome://extensions
+
+2. Enable Developer mode
+
+3. Click Load unpacked
+
+4. Select your email-writer-ext directory
+
+That’s it! Now open Gmail or Outlook and try replying to an email — you’ll see the "AI Reply" button.
+---
+# 🐳 Build and push your own Docker image
+### If you want to build and host under your Docker Hub:
+```bash
+docker build -t yourdockerhub/email-writer-app:latest .
+docker push yourdockerhub/email-writer-app:latest
+```
+
+## ☁️ Deploy on Azure
+### This project runs seamlessly on Azure App Service (Linux Container):
+
+- Create a Web App with Docker
+
+- Set the Docker Hub image name
+
+- Add GEMINI_API_URL and GEMINI_API_KEY in Configuration
+- Your app will be available at:
+- ```bash 
+  https://your-app-name.azurewebsites.net/api/email/generate```
+  
+---
+# 📸 Screenshots
+
+![img.png](img.png)
+### click on the "AI Reply" button to generate a reply
+![img_1.png](img_1.png)
+
+---
+## License
+
+This project is licensed under the [MIT License](LICENSE).
 
 
-```const BACKEND_URL = "https://example-appp-123.centralindia-01.azurewebsites.net";```
+## ⭐ Star this repo!
+If you found this helpful, please ⭐ star the repo to support future development!
+
